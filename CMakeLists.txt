@@ -53,65 +53,6 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${CUDA_INCLUDE_DIRS} ${O
 add_library(tkDNN SHARED ${tkdnn_SRC})
 target_link_libraries(tkDNN ${tkdnn_LIBS})
 
-#static 
-#add_library(tkDNN_static STATIC ${tkdnn_SRC})
-#target_link_libraries(tkDNN_static ${tkdnn_LIBS})
-
-# SMALL NETS
-add_executable(test_simple tests/simple/test_simple.cpp)
-target_link_libraries(test_simple tkDNN)
-
-add_executable(test_mnist tests/mnist/test_mnist.cpp)
-target_link_libraries(test_mnist tkDNN)
-
-add_executable(test_mnistRT tests/mnist/test_mnistRT.cpp)
-target_link_libraries(test_mnistRT tkDNN)
-
-add_executable(test_imuodom tests/imuodom/imuodom.cpp)
-target_link_libraries(test_imuodom tkDNN)
-
-# DARKNET
-file(GLOB darknet_SRC "tests/darknet/*.cpp")
-foreach(test_SRC ${darknet_SRC})
-    get_filename_component(test_NAME "${test_SRC}" NAME_WE)
-    set(test_NAME test_${test_NAME})
-    add_executable(${test_NAME} ${test_SRC})
-    target_link_libraries(${test_NAME} tkDNN)
-endforeach()
-
-# MOBILENET
-add_executable(test_mobilenetv2ssd tests/mobilenet/mobilenetv2ssd/mobilenetv2ssd.cpp)
-target_link_libraries(test_mobilenetv2ssd tkDNN)
-
-add_executable(test_bdd-mobilenetv2ssd tests/mobilenet/bdd-mobilenetv2ssd/bdd-mobilenetv2ssd.cpp)
-target_link_libraries(test_bdd-mobilenetv2ssd tkDNN)
-
-add_executable(test_mobilenetv2ssd512 tests/mobilenet/mobilenetv2ssd512/mobilenetv2ssd512.cpp)
-target_link_libraries(test_mobilenetv2ssd512 tkDNN)
-
-# BACKBONES
-add_executable(test_resnet101 tests/backbones/resnet101/resnet101.cpp)
-target_link_libraries(test_resnet101 tkDNN)
-
-add_executable(test_dla34 tests/backbones/dla34/dla34.cpp)
-target_link_libraries(test_dla34 tkDNN)
-
-# CENTERNET
-add_executable(test_resnet101_cnet tests/centernet/resnet101_cnet/resnet101_cnet.cpp)
-target_link_libraries(test_resnet101_cnet tkDNN)
-
-add_executable(test_dla34_cnet tests/centernet/dla34_cnet/dla34_cnet.cpp)
-target_link_libraries(test_dla34_cnet tkDNN)
-
-# DEMOS
-add_executable(test_rtinference tests/test_rtinference/rtinference.cpp)
-target_link_libraries(test_rtinference tkDNN)
-
-add_executable(map_demo demo/demo/map.cpp)
-target_link_libraries(map_demo tkDNN)
-
-add_executable(demo demo/demo/demo.cpp)
-target_link_libraries(demo tkDNN)
 
 #-------------------------------------------------------------------------------
 # Install
