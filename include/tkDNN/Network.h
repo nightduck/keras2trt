@@ -17,23 +17,23 @@ namespace tk { namespace dnn {
 */
 struct dataDim_t {
 
-    int n, c, h, w, l;
+    int n, h, w, c, l;
 
-    dataDim_t() : n(1), c(1), h(1), w(1), l(1) {};
+    dataDim_t() : n(1), h(1), w(1), c(1), l(1) {};
 
     dataDim_t(nvinfer1::Dims &d) :
-        n(1), c(d.d[0] ? d.d[0] : 1), h(d.d[1] ? d.d[1] : 1),
-        w(d.d[2] ? d.d[2] : 1), l(d.d[3] ? d.d[3] : 1) {};
+        n(d.d[0] ? d.d[0] : 1), h(d.d[1] ? d.d[1] : 1), w(d.d[2] ? d.d[2] : 1),
+        c(d.d[3] ? d.d[3] : 1), l(d.d[4] ? d.d[4] : 1) {};
 
     dataDim_t(int _n, int _c, int _h, int _w, int _l = 1) :
-        n(_n), c(_c), h(_h), w(_w), l(_l) {};
+        n(_n), h(_c), w(_h), c(_w), l(_l) {};
 
     void print() {
-        std::cout<<"Data dim: "<<n<<" "<<c<<" "<<h<<" "<<w<<" "<<l<<"\n";
+        std::cout<<"Data dim: "<<n<<" "<<h<<" "<<w<<" "<<c<<" "<<l<<"\n";
     }
 
     int tot() {
-        return n*c*h*w*l;
+        return n*h*w*c*l;
     }
 };
 
